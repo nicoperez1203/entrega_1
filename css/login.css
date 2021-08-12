@@ -1,0 +1,40 @@
+body {
+    background-color: cornflowerblue;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+.login {
+    width: 20%;
+    margin: 10% auto;
+    font-size: 1em;
+  }
+  
+  
+.encabezado {
+    background-color: darkslategray;
+    padding: 4%;
+    font-size: 1em;
+    font-weight: bolder;
+    text-align: center;
+    color: white;
+  }
+  
+.login input {
+    box-sizing: border-box;
+    width: 100%;
+    border-width: 5px;
+    border-style: solid;
+    padding: 4%;
+    font-size: 0.95em;
+  }
+  
+.login input[type="email"],
+.login input[type="password"] {
+    background: whitesmoke;
+    border-color: teal;
+    color: darkblue;
+  }
+
+.boton{
+    margin-left: 40%;
+}  
