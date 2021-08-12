@@ -1,34 +1,33 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="styles.css" rel="stylesheet" type="text/css">
-    <title>Autenticación</title>
- </head>
-  <body>
-    <form action="home.html" enctype="multipart/form-data" method="post">
-    <div class="login">
-    <h1 class="encabezado">Por favor, inicie sesión</h1>
-    <label>e-mail</label>
-    <input name="email" type="email" placeholder="Ingrese su e-mail" required>
-  <br>
-  <br>
-    <label>Contraseña</label>
-    <input name="password" type="password" placeholder="Ingrese su contraseña" required>
-  <br>
-  <br>  
-    <p><input type="checkbox" name="casilla">Recordarme</p>
-    <input type="submit" value="Iniciar Sesión">
-  </div>
-  
-    
-</form>
+    <link href="css/index.css" rel="stylesheet" type="text/css">
+    <title>Document</title>
+</head>
+<body>
+        <div>
+          <img src="img/login.png">
+        </div>
+        <div class="container">   
+        <h2 id="title"> -Bienvenido a e-mercado- </h2>
+        <h2 id="title"> Por favor, inicie sesión.</h2>
+            <form class="login-form" action="home.html" method="post">
+              <input type="email" placeholder="Ingrese su e-mail" class="form-input" required>
+              <input type="password" placeholder="Ingrese su contraseña" class="form-input" required>
+              <input type="submit" value="Iniciar Sesión" class="btn-login"/>
+              <p><input type="checkbox" name="casilla">Recordarme</p>
+            </form>
+        </div>
 </body>
+</html>
 
-<script src="script.js"></script>
-</html> 
+
+
+
+
 
 
 
