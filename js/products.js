@@ -57,7 +57,7 @@ function showProductList(){
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ product.name +`</h4>
-                            <small class="text-muted">` + product.soldCount + ` artículos</small>
+                            <small class="text-muted">Quedan: ` + product.soldCount + ` artículos, y el precio unitario es: ` + product.cost + `U$S</small>
                         </div>
                         <p class="mb-1">` + product.description + `</p>
                     </div>
