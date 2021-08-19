@@ -25,8 +25,8 @@ function sortProducts(criteria, array){
         });
     }else if (criteria === ORDER_BY_PROD_COUNT){
         result = array.sort(function(a, b) {
-            let aCount = parseInt(a.productCount);
-            let bCount = parseInt(b.productCount);
+            let aCount = parseInt(a.soldCount);  /*Se cambia "product" por "sold", ya que la propiedad a la que quiero acceder en el JSON se llama así*/
+            let bCount = parseInt(b.soldCount);  /*Se cambia "product" por "sold", ya que la propiedad a la que quiero acceder en el JSON se llama así*/
 
             if ( aCount > bCount ){ return -1; }
             if ( aCount < bCount ){ return 1; }
@@ -43,8 +43,8 @@ function showProductList(){
     for(let i = 0; i < currentProductsArray.length; i++){
         let product = currentProductsArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.productCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.productCount) <= maxCount))){
+        if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&  /*Se cambia "product" por "sold"*/
+            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))){   /*Se cambia "product" por "sold"*/
 
             /*Aqui cambiamos category-info por product-info para que lea en elnace correspondiente. De igual manera con la imagen, nombre, 
             descripcion y cantidad de vendidos del producto, para que nos muestre lo que corresponde.*/
@@ -70,11 +70,11 @@ function showProductList(){
     }
 }
 
-function sortAndShowProducts(sortCriteria, categoriesArray){
+function sortAndShowProducts(sortCriteria, productsArray){
     currentSortCriteria = sortCriteria;
 
-    if(categoriesArray != undefined){
-        currentProductsArray = categoriesArray;
+    if(productsArray != undefined){
+        currentProductsArray = productsArray;
     }
 
     currentProductsArray = sortProducts(currentSortCriteria, currentProductsArray);
@@ -87,7 +87,7 @@ function sortAndShowProducts(sortCriteria, categoriesArray){
 //que el documento se encuentra cargado, es decir, se encuentran todos los
 //elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
-    getJSONData(PRODUCTS_URL).then(function(resultObj){
+    getJSONData(PRODUCTS_URL).then(function(resultObj){ /*En esta linea se hace el cambio de "categories", por "products", para que tome la url correspondiente*/
         if (resultObj.status === "ok"){
             sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
         }
