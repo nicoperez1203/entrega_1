@@ -43,10 +43,7 @@ function showProductList(){
     for(let i = 0; i < currentProductsArray.length; i++){
         let product = currentProductsArray[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&  /*Se cambia "product" por "sold"*/
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))){   /*Se cambia "product" por "sold"*/
-
-            /*Aqui cambiamos category-info por product-info para que lea en elnace correspondiente. De igual manera con la imagen, nombre, 
+        {   /*Aqui cambiamos category-info por product-info para que lea en elnace correspondiente. De igual manera con la imagen, nombre, 
             descripcion y cantidad de vendidos del producto, para que nos muestre lo que corresponde.*/
             htmlContentToAppend += `
             <a href="product-info.html" class="list-group-item list-group-item-action"> 
@@ -103,39 +100,6 @@ document.addEventListener("DOMContentLoaded", function(e){
 
     document.getElementById("sortByCount").addEventListener("click", function(){
         sortAndShowProducts(ORDER_BY_PROD_COUNT);
-    });
-
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
-        document.getElementById("rangeFilterCountMin").value = "";
-        document.getElementById("rangeFilterCountMax").value = "";
-
-        minCount = undefined;
-        maxCount = undefined;
-
-        showProductList();
-    });
-
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
-        //de productos por categoría.
-        minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
-
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-            minCount = parseInt(minCount);
-        }
-        else{
-            minCount = undefined;
-        }
-
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-            maxCount = parseInt(maxCount);
-        }
-        else{
-            maxCount = undefined;
-        }
-
-        showProductList();
     });
 });
   
