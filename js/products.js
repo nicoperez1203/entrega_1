@@ -1,51 +1,34 @@
 const ORDER_ASC_BY_NAME = "AZ";
-const ORDER_DESC_BY_NAME = "ZA";
-const ORDER_BY_PROD_COUNT = "Cant.";
-var currentProductsArray = []; 
 var currentSortCriteria = undefined;
-var minCount = undefined;
-var maxCount = undefined;
+var productos = []; 
+
+
 
 /*Se cambian nombre de las funciones simplemente para darle un nombre distinto a las de "category"*/
 
-function sortProducts(criteria, array){
+function ordenarProd(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
     {
         result = array.sort(function(a, b) {
-            if ( a.name < b.name ){ return -1; }
-            if ( a.name > b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_DESC_BY_NAME){
-        result = array.sort(function(a, b) {
-            if ( a.name > b.name ){ return -1; }
-            if ( a.name < b.name ){ return 1; }
-            return 0;
-        });
-    }else if (criteria === ORDER_BY_PROD_COUNT){
-        result = array.sort(function(a, b) {
-            let aCount = parseInt(a.soldCount);  /*Se cambia "product" por "sold", ya que la propiedad a la que quiero acceder en el JSON se llama así*/
-            let bCount = parseInt(b.soldCount);  /*Se cambia "product" por "sold", ya que la propiedad a la que quiero acceder en el JSON se llama así*/
-
-            if ( aCount > bCount ){ return -1; }
-            if ( aCount < bCount ){ return 1; }
+            if ( a.name < b.name ){ return -1; } //Aqui accedemos a la propiedad nombre del objeto 'a'
+            if ( a.name > b.name ){ return 1; }  //para compararlo con el nombre del objeto 'b'
             return 0;
         });
     }
-
     return result;
 }
 
-function showProductList(){
 
-    let htmlContentToAppend = "";
-    for(let i = 0; i < currentProductsArray.length; i++){
-        let product = currentProductsArray[i];
+function mostrarProductos(){
+
+    let listaProductos = "";
+    for(let i = 0; i < productos.length; i++){
+        let product = productos[i];
 
         {   /*Aqui cambiamos category-info por product-info para que lea en elnace correspondiente. De igual manera con la imagen, nombre, 
             descripcion y cantidad de vendidos del producto, para que nos muestre lo que corresponde.*/
-            htmlContentToAppend += `
+            listaProductos += `
             <a href="product-info.html" class="list-group-item list-group-item-action"> 
                 <div class="row">
                     <div class="col-3">
@@ -63,43 +46,28 @@ function showProductList(){
             `
         }
 
-        document.getElementById("cat-list-container").innerHTML = htmlContentToAppend;
+        document.getElementById("listaproductos").innerHTML = listaProductos; /*Insertamos la lista en el div con id 'listaproductos*/ 
     }
 }
 
-function sortAndShowProducts(sortCriteria, productsArray){
-    currentSortCriteria = sortCriteria;
+function ordymostProd(sortCriteria, productsArray){  /*Esta funcion, combina las dos de arriba, para mostrar la lista de productos ordenados*/
+    currentSortCriteria = sortCriteria;                     
 
     if(productsArray != undefined){
-        currentProductsArray = productsArray;
+        productos = productsArray;
     }
 
-    currentProductsArray = sortProducts(currentSortCriteria, currentProductsArray);
+    productos = ordenarProd(currentSortCriteria, productos);
 
-    //Muestro las categorías ordenadas
-    showProductList();
+    /*Muestro la lista de productos en orden alfabetico por defecto*/
+    mostrarProductos();
 }
 
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
 document.addEventListener("DOMContentLoaded", function(e){
     getJSONData(PRODUCTS_URL).then(function(resultObj){ /*En esta linea se hace el cambio de "categories", por "products", para que tome la url correspondiente*/
-        if (resultObj.status === "ok"){
-            sortAndShowProducts(ORDER_ASC_BY_NAME, resultObj.data);
+        if (resultObj.status === "ok"){ /*Aqui chequea que la respuesta al json haya sido efectiva*/
+            ordymostProd(ORDER_ASC_BY_NAME, resultObj.data); /*Por defecto los productos se muestran ordenados en orden ascendente*/
         }
-    });
-
-    document.getElementById("sortAsc").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_ASC_BY_NAME);
-    });
-
-    document.getElementById("sortDesc").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_DESC_BY_NAME);
-    });
-
-    document.getElementById("sortByCount").addEventListener("click", function(){
-        sortAndShowProducts(ORDER_BY_PROD_COUNT);
     });
 });
   
