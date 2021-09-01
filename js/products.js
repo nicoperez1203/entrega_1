@@ -10,8 +10,8 @@ var maxcost = undefined;
 
 
 function mostrarNomb(){
-    var nombre = document.getElementById("usuario");
-    var userName = JSON.parse(localStorage.user);
+    var nombre = document.getElementById("usuariolog");
+    var userName = JSON.parse(sessionStorage.user);
     nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
 }
 
@@ -105,7 +105,7 @@ function mostrarProductos(){
     }
 }
 
-function ordymostProd(nuevoCrit, listaProd){ /*Esta funcion, combina las dos de arriba, para mostrar la lista de productos ordenados*/
+function ordymostProd(nuevoCrit, listaProd){ 
     actualCrit = nuevoCrit; 
 
     if(listaProd != undefined){

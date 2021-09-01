@@ -1,8 +1,19 @@
+/*function checkLogin() {
+    if (sessionStorage.getItem("key") == null) {
+        window.location = "index.html"; 
+    }
+}
+checkLogin()*/
+
 function mostrarNomb(){
-    var nombre = document.getElementById("usuario");
-    var userName = JSON.parse(localStorage.user);
+    var nombre = document.getElementById("usuariolog");
+    var userName = JSON.parse(sessionStorage.user);
     nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
 }
 
 mostrarNomb()
+
+
+
+
 
