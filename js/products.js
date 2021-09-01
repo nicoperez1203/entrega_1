@@ -1,11 +1,12 @@
 const ORDER_ASC_BY_NAME = "AZ";
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
-const ORDER_BY_COST = "Cost.";
+const ORD_POR_$_ASC = "Cost.";
+const ORD_POR_$_DESC = "Cost Desc.";
 var productos = [];
-var currentSortCriteria = undefined;
-var minCount = undefined;
-var maxCount = undefined;
+var actualCrit = undefined;
+var mincost = undefined;
+var maxcost = undefined;
 
 
 function mostrarNomb(){
@@ -24,23 +25,23 @@ document.addEventListener("DOMContentLoaded", function(e){
         }
     });
 
-function ordenarProd(criteria, array){
+function ordenarProd(criterio, arrprod){
     let result = [];
-    if (criteria === ORDER_ASC_BY_NAME)
+    if (criterio === ORDER_ASC_BY_NAME)
     {
-        result = array.sort(function(a, b) {
+        result = arrprod.sort(function(a, b) {
             if ( a.name < b.name ){ return -1; } //Aqui accedemos a la propiedad nombre del objeto 'a'
             if ( a.name > b.name ){ return 1; }  //para compararlo con el nombre del objeto 'b'
             return 0;
         });
-    }else if (criteria === ORDER_DESC_BY_NAME){
-        result = array.sort(function(a, b) {
+    }else if (criterio === ORDER_DESC_BY_NAME){
+        result = arrprod.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_SOLD_COUNT){
-        result = array.sort(function(a, b) {
+    }else if (criterio === ORDER_BY_SOLD_COUNT){
+        result = arrprod.sort(function(a, b) {
             let aCount = parseInt(a.soldCount); //Aqui accedemos a la propiedad vendidos del objeto 'a'
             let bCount = parseInt(b.soldCount); //para compararlo con el vendidos del objeto 'b'
 
@@ -48,13 +49,22 @@ function ordenarProd(criteria, array){
             if ( aCount < bCount ){ return 1; }
             return 0;
         });
-    }else if (criteria === ORDER_BY_COST){
-        result = array.sort(function(a, b) {
-            let aCount = parseInt(a.cost); //Aqui accedemos a la propiedad precio del objeto 'a'
-            let bCount = parseInt(b.cost); //para compararlo con el precio del objeto 'b'
+    }else if (criterio === ORD_POR_$_ASC){
+        result = arrprod.sort(function(a, b) {
+            let acost = parseInt(a.cost); //Aqui accedemos a la propiedad precio del objeto 'a'
+            let bcost = parseInt(b.cost); //para compararlo con el precio del objeto 'b'
 
-            if ( aCount > bCount ){ return 1; }
-            if ( aCount < bCount ){ return -1; }
+            if ( acost > bcost ){ return 1; }
+            if ( acost < bcost ){ return -1; }
+            return 0;
+        });
+    }else if (criterio === ORD_POR_$_DESC){
+        result = arrprod.sort(function(a, b) {
+            let acost = parseInt(a.cost); //Aqui accedemos a la propiedad precio del objeto 'a'
+            let bcost = parseInt(b.cost); //para compararlo con el precio del objeto 'b'
+
+            if ( acost > bcost ){ return -1; }
+            if ( bcost < acost ){ return 1; }
             return 0;
         });
     }
@@ -68,8 +78,8 @@ function mostrarProductos(){
     for(let i = 0; i < productos.length; i++){
         let product = productos[i];
 
-        if (((minCount == undefined) || (minCount != undefined && parseInt(product.soldCount) >= minCount)) &&
-            ((maxCount == undefined) || (maxCount != undefined && parseInt(product.soldCount) <= maxCount))){
+        if (((mincost == undefined) || (mincost != undefined && parseInt(product.cost) >= mincost)) &&
+            ((maxcost == undefined) || (maxcost != undefined && parseInt(product.cost) <= maxcost))){
             
             /*Aqui accedemos a las distintas propiedades que queremos insertar en el html.*/
             listaProductos += `
@@ -95,14 +105,14 @@ function mostrarProductos(){
     }
 }
 
-function ordymostProd(sortCriteria, categoriesArray){ /*Esta funcion, combina las dos de arriba, para mostrar la lista de productos ordenados*/
-    currentSortCriteria = sortCriteria; 
+function ordymostProd(nuevoCrit, listaProd){ /*Esta funcion, combina las dos de arriba, para mostrar la lista de productos ordenados*/
+    actualCrit = nuevoCrit; 
 
-    if(categoriesArray != undefined){
-        productos = categoriesArray;
+    if(listaProd != undefined){
+        productos = listaProd;
     }
 
-    productos = ordenarProd(currentSortCriteria, productos);
+    productos = ordenarProd(actualCrit, productos);
 
     //Muestro las categorías ordenadas
     mostrarProductos();
@@ -126,41 +136,47 @@ function ordymostProd(sortCriteria, categoriesArray){ /*Esta funcion, combina la
     });
 
     document.getElementById("sortByCost").addEventListener("click", function(){
-        ordymostProd(ORDER_BY_COST);
+        ordymostProd(ORD_POR_$_ASC);
     });
 
-    document.getElementById("clearRangeFilter").addEventListener("click", function(){
-        document.getElementById("rangeFilterCountMin").value = "";
-        document.getElementById("rangeFilterCountMax").value = "";
+    document.getElementById("sortByCostDesc").addEventListener("click", function(){
+        ordymostProd(ORD_POR_$_DESC);
+    });
 
-        minCount = undefined;
-        maxCount = undefined;
+    
+
+    document.getElementById("clearRangeFilter").addEventListener("click", function(){
+        document.getElementById("rangeFiltercostMin").value = "";
+        document.getElementById("rangeFiltercostMax").value = "";
+
+        mincost = undefined;
+        maxcost = undefined;
 
         mostrarProductos();
     });
 
-    document.getElementById("rangeFilterCount").addEventListener("click", function(){
-        //Obtengo el mínimo y máximo de los intervalos para filtrar por cantidad
+    document.getElementById("rangeFiltercost").addEventListener("click", function(){
+        //Obtengo el mínimo y máximo de los intervalos para filtrar por costo
       
-        minCount = document.getElementById("rangeFilterCountMin").value;
-        maxCount = document.getElementById("rangeFilterCountMax").value;
+        mincost = document.getElementById("rangeFiltercostMin").value;
+        maxcost = document.getElementById("rangeFiltercostMax").value;
 
-        if ((minCount != undefined) && (minCount != "") && (parseInt(minCount)) >= 0){
-            minCount = parseInt(minCount);
+        if ((mincost != undefined) && (mincost != "") && (parseInt(mincost)) >= 0){
+            mincost = parseInt(mincost);
         }
         else{
-            minCount = undefined;
+            mincost = undefined;
         }
 
-        if ((maxCount != undefined) && (maxCount != "") && (parseInt(maxCount)) >= 0){
-            maxCount = parseInt(maxCount);
+        if ((maxcost != undefined) && (maxcost != "") && (parseInt(maxcost)) >= 0){
+            maxcost = parseInt(maxcost);
         }
         else{
-            maxCount = undefined;
+            maxcost = undefined;
         }
 
         mostrarProductos();
     });
 });
 
-      
+

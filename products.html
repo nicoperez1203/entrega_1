@@ -33,6 +33,7 @@
             <div class="row">
                 <div class="col text-right">
                     <div class="btn-group btn-group-toggle mb-4" data-toggle="buttons">
+                        <!--<input type="search" /> -->
                         <label class="btn btn-light active" id="sortAsc" >
                             <input type="radio" name="options" autocomplete="off" checked>A-Z
                         </label>
@@ -43,8 +44,11 @@
                             <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Cant.
                         </label>
                         <label class="btn btn-light" id="sortByCost" >
-                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>Precio.
-                      </label>
+                          <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>U$S-Asc.
+                        </label>
+                        <label class="btn btn-light" id="sortByCostDesc" >
+                        <input type="radio" name="options" autocomplete="off"><i class="fas fa-sort-amount-down mr-1"></i>U$S-Desc.
+                        </label>
                     </div>
                 </div>
             </div>
@@ -53,17 +57,17 @@
                 <div class="col-md-6 col-sm-12 mb-1 container">
                   <div class="row container p-0 m-0">
                     <div class="col">
-                      <p class="font-weight-normal text-right my-2">Cant.</p>
+                      <p class="font-weight-normal text-right my-2">Costo.</p>
                     </div>
                     <div class="col">
-                      <input class="form-control" type="number" placeholder="min." id="rangeFilterCountMin">
+                      <input class="form-control" type="number" placeholder="U$Smin" id="rangeFiltercostMin">
                     </div>
                     <div class="col">
-                      <input class="form-control" type="number" placeholder="máx." id="rangeFilterCountMax">
+                      <input class="form-control" type="number" placeholder="U$Smáx" id="rangeFiltercostMax">
                     </div>
                     <div class="col-3 p-0">
                       <div class="btn-group" role="group">
-                        <button class="btn btn-light btn-block" id="rangeFilterCount">Filtrar</button>
+                        <button class="btn btn-light btn-block" id="rangeFiltercost">Filtrar</button>
                         <button class="btn btn-link btn-sm" id="clearRangeFilter">Limpiar</button>
                       </div>
                     </div>
