@@ -1,6 +1,7 @@
-//Función que se ejecuta una vez que se haya lanzado el evento de
-//que el documento se encuentra cargado, es decir, se encuentran todos los
-//elementos HTML presentes.
-document.addEventListener("DOMContentLoaded", function(e){
+function mostrarNomb(){
+    var nombre = document.getElementById("usuario");
+    var userName = JSON.parse(localStorage.user);
+    nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
+}
 
-});
+mostrarNomb()

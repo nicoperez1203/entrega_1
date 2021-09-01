@@ -10,6 +10,14 @@ let PERCENTAGE_SYMBOL = '%';
 let SUCCESS_MSG = "¡Se ha realizado la publicación con éxito! :)";
 let ERROR_MSG = "Ha habido un error :(, verifica qué pasó.";
 
+function mostrarNomb(){
+    var nombre = document.getElementById("usuario");
+    var userName = JSON.parse(localStorage.user);
+    nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
+}
+
+mostrarNomb()
+
 //Función que se utiliza para actualizar los costos de publicación
 function updateTotalCosts(){
     let unitProductCostHTML = document.getElementById("productCostText");

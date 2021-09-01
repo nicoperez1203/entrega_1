@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="css/index.css" rel="stylesheet" type="text/css">
+    <script src="js/index.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="82751548078-ak6scpnkojgcebd8uenunmm9rhufe8ep.apps.googleusercontent.com">
     <title>Login</title>
 </head>
 <body>
@@ -15,12 +18,23 @@
         <h2 id="title"> -Bienvenido a e-mercado- </h2>
         <h2 id="title"> Por favor, inicie sesión.</h2>
             <form class="login-form" action="home.html" method="post">
-              <input type="email" placeholder="Ingrese su e-mail" class="form-input" required>
-              <input type="password" placeholder="Ingrese su contraseña" class="form-input" required>
-              <input type="submit" value="Iniciar Sesión" class="btn-login"/>
+              <input id="email" type="text" placeholder="Ingrese su e-mail/Nombre de usuario" class="form-input" required>
+              <input id="pass" type="password" placeholder="Ingrese su contraseña" class="form-input" required >
+              <input type="submit" onclick="guardarNomb()" value="Iniciar Sesión" class="btn-login"/>
               <p><input type="checkbox" name="casilla">Recordarme</p>
-            </form>
+            </form>  
         </div>
+      <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+      
+      <script>
+        function onSignIn(googleUser) {       // Useful data for your client-side scripts:       
+        var profile = googleUser.getBasicProfile();       
+        console.log('Full Name: ' + profile.getName());       
+        var id_token = googleUser.getAuthResponse().id_token;       
+        localStorage.setItem("User", JSON.stringify({ usuario: profile.getName() }));       
+        window.location = "home.html";     }
+      </script>
+
 </body>
 </html>
 

@@ -6,6 +6,15 @@ var currentSortCriteria = undefined;
 var minCount = undefined;
 var maxCount = undefined;
 
+
+function mostrarNomb(){
+    var nombre = document.getElementById("usuario");
+    var userName = JSON.parse(localStorage.user);
+    nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
+}
+
+mostrarNomb()
+
 function sortCategories(criteria, array){
     let result = [];
     if (criteria === ORDER_ASC_BY_NAME)
