@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id" content="82751548078-ak6scpnkojgcebd8uenunmm9rhufe8ep.apps.googleusercontent.com">
+    <meta name="google-signin-scope" content="profile email">
     <link href="css/index.css" rel="stylesheet" type="text/css">
     <script src="js/index.js"></script>
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <meta name="google-signin-client_id" content="82751548078-ak6scpnkojgcebd8uenunmm9rhufe8ep.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script> 
     <title>Login</title>
 </head>
 <body>
@@ -27,13 +28,19 @@
             </div>
       
       
+      <!--Desafiate Google-->
       <script>
-        function onSignIn(googleUser) {       // Useful data for your client-side scripts:       
+        function onSignIn(googleUser) {              
         var profile = googleUser.getBasicProfile();       
         console.log('Full Name: ' + profile.getName());       
         var id_token = googleUser.getAuthResponse().id_token;       
         sessionStorage.setItem("User", JSON.stringify({ usuario: profile.getName() }));       
-        window.location = "home.html";     }
+        window.location = "home.html"; }
+      </script>
+
+      <script>
+        function signOut() { var auth2 = gapi.auth2.getAuthInstance(); auth2.signOut().then(function () { location.href = "index.html"; }); }
+        function onLoad() { gapi.load('auth2', function () { gapi.auth2.init(); }); }
       </script>
 
 </body>
