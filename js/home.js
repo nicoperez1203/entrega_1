@@ -1,9 +1,4 @@
-/*function checkLogin() {
-    if (sessionStorage.getItem("key") == null) {
-        window.location = "index.html"; 
-    }
-}
-checkLogin()*/
+
 
 function mostrarNomb(){
     var nombre = document.getElementById("usuariolog");

@@ -34,13 +34,8 @@
         var profile = googleUser.getBasicProfile();       
         console.log('Full Name: ' + profile.getName());       
         var id_token = googleUser.getAuthResponse().id_token;       
-        sessionStorage.setItem("User", JSON.stringify({ usuario: profile.getName() }));       
+        sessionStorage.setItem("user", JSON.stringify({ usuario: profile.getName() }));       
         window.location = "home.html"; }
-      </script>
-
-      <script>
-        function signOut() { var auth2 = gapi.auth2.getAuthInstance(); auth2.signOut().then(function () { location.href = "index.html"; }); }
-        function onLoad() { gapi.load('auth2', function () { gapi.auth2.init(); }); }
       </script>
 
 </body>
