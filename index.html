@@ -18,15 +18,16 @@
         <div class="container">   
         <h2 id="title"> -Bienvenido a e-mercado- </h2>
         <h2 id="title"> Por favor, inicie sesión.</h2>
-            <form class="login-form" action="home.html" method="post">
+            <form class="login-form"  method="post">
               <input id="usuario" type="text" placeholder="Ingrese su e-mail/Nombre de usuario" class="form-input" required>
               <input id="pass" type="password" placeholder="Ingrese su contraseña" class="form-input" required >
-              <input type="submit" onclick="guardarNomb()" value="Iniciar Sesión" class="btn-login"/>
+              <!--<input type="submit" onclick="redireccion()" value="Iniciar Sesión" class="btn-login"/> -->
               <p><input type="checkbox" name="casilla">Recordarme</p>
               <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div> 
-            </form>  
-            </div>
-      
+            </form>
+            <input type="submit" onclick="redireccion()" value="Iniciar Sesión" class="btn-login"/>
+        </div>
+        
       
       <!--Desafiate Google-->
       <script>
