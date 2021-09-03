@@ -7,6 +7,7 @@ var productos = [];
 var actualCrit = undefined;
 var mincost = undefined;
 var maxcost = undefined;
+var buscar = undefined;
 
 
 function mostrarNomb(){
@@ -80,6 +81,8 @@ function mostrarProductos(){
 
         if (((mincost == undefined) || (mincost != undefined && parseInt(product.cost) >= mincost)) &&
             ((maxcost == undefined) || (maxcost != undefined && parseInt(product.cost) <= maxcost))){
+                if (buscar == undefined || product.name.toLowerCase().indexOf(buscar) != -1 ||
+                product.description.toLowerCase().indexOf(buscar) != -1) {
             
             /*Aqui accedemos a las distintas propiedades que queremos insertar en el html.*/
             listaProductos += `
@@ -100,6 +103,7 @@ function mostrarProductos(){
             </a>
             `
         }
+    }
 
         document.getElementById("listaproductos").innerHTML = listaProductos;
     }
@@ -177,6 +181,12 @@ function ordymostProd(nuevoCrit, listaProd){
 
         mostrarProductos();
     });
+
+    document.getElementById("buscador").addEventListener("input", function (e) {
+        buscar = document.getElementById("buscador").value.toLowerCase();
+        mostrarProductos();
+    });
+    
 });
 
 
