@@ -13,7 +13,8 @@ function redireccion(){
             window.location = "home.html";
         }else{
             alert("Los campos usuario y/o contraseña, no pueden estar vacíos.")
-        }
+            document.getElementById("usuario").focus();
+            }
     }
 
 

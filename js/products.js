@@ -61,8 +61,8 @@ function ordenarProd(criterio, arrprod){
         });
     }else if (criterio === ORD_POR_$_DESC){
         result = arrprod.sort(function(a, b) {
-            let acost = parseInt(a.cost); //Aqui accedemos a la propiedad precio del objeto 'a'
-            let bcost = parseInt(b.cost); //para compararlo con el precio del objeto 'b'
+            let acost = parseInt(a.cost); 
+            let bcost = parseInt(b.cost); 
 
             if ( acost > bcost ){ return -1; }
             if ( bcost < acost ){ return 1; }
@@ -81,8 +81,8 @@ function mostrarProductos(){
 
         if (((mincost == undefined) || (mincost != undefined && parseInt(product.cost) >= mincost)) &&
             ((maxcost == undefined) || (maxcost != undefined && parseInt(product.cost) <= maxcost))){
-                if (buscar == undefined || product.name.toLowerCase().indexOf(buscar) != -1 ||
-                product.description.toLowerCase().indexOf(buscar) != -1) {
+                if (buscar == undefined || product.name.toLowerCase().indexOf(buscar) != -1 || /*Desafiate buscador en vivo*/
+                product.description.toLowerCase().indexOf(buscar) != -1) {/*Desafiate buscador en vivo*/
             
             /*Aqui accedemos a las distintas propiedades que queremos insertar en el html.*/
             listaProductos += `
@@ -94,10 +94,11 @@ function mostrarProductos(){
                     <div class="col">
                         <div class="d-flex w-100 justify-content-between">
                             <h4 class="mb-1">`+ product.name +`</h4>
-                            <small class="text-muted">Quedan: ` + product.soldCount + ` artículos, y el precio unitario es: ` + product.cost + `U$S</small>
-                           
+                            <small class="text-muted">Se vendieron: ` + product.soldCount + ` autos de este tipo.</small>
                         </div>
                         <p class="mb-1">` + product.description + `</p>
+                        <br>
+                        <p class="mb-1">El precio unitario es: ` + product.cost + `U$S</p>
                     </div>
                 </div>
             </a>
@@ -182,8 +183,8 @@ function ordymostProd(nuevoCrit, listaProd){
         mostrarProductos();
     });
 
-    document.getElementById("buscador").addEventListener("input", function (e) {
-        buscar = document.getElementById("buscador").value.toLowerCase();
+    document.getElementById("buscador").addEventListener("input", function (e) {  /*Desafiate buscador en vivo*/
+        buscar = document.getElementById("buscador").value.toLowerCase(); /*Desafiate buscador en vivo*/
         mostrarProductos();
     });
     
