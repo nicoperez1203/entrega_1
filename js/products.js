@@ -1,19 +1,19 @@
-const ORDER_ASC_BY_NAME = "AZ";
+const ORDER_ASC_BY_NAME = "AZ";  //Constantes para criterio de orden
 const ORDER_DESC_BY_NAME = "ZA";
 const ORDER_BY_SOLD_COUNT = "Cant.";
 const ORD_POR_$_ASC = "Cost.";
 const ORD_POR_$_DESC = "Cost Desc.";
-var productos = [];
-var actualCrit = undefined;
-var mincost = undefined;
-var maxcost = undefined;
-var buscar = undefined;
+var productos = []; //Lista de productos vacía
+var actualCrit = undefined; //Criterio actual de orden
+var mincost = undefined; //Variable en la que ingresaremos el costo minimo
+var maxcost = undefined; //Variable en la que ingresaremos el costo maximo
+var buscar = undefined; //Variable que nos servirá para buscar en tiempo real
 
 
 function mostrarNomb(){
     var nombre = document.getElementById("usuariolog");
-    var userName = JSON.parse(sessionStorage.user);
-    nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`;
+    var userName = JSON.parse(sessionStorage.user); //Convertimos el valor almacenado en sessionStorage a un valor que pueda ser interpretado por js
+    nombre.innerHTML = `Bienvenido <font color="Olive"><strong>${userName.usuario}</strong></font> a e-mercado`; //Insertamos el nombre de usuario 
 }
 
 mostrarNomb()
@@ -22,26 +22,26 @@ mostrarNomb()
 document.addEventListener("DOMContentLoaded", function(e){ 
     getJSONData(PRODUCTS_URL).then(function(resultObj){ /*En esta linea se hace el llamado al JSON de 'productos'*/
         if (resultObj.status === "ok"){ /*Aqui chequea que la respuesta al json haya sido efectiva*/
-            ordymostProd(ORDER_ASC_BY_NAME, resultObj.data); /*Por defecto los productos se muestran ordenados en orden ascendente*/
+            ordymostProd(ORDER_ASC_BY_NAME, resultObj.data); /*Por defecto los productos se muestran ordenados en orden ascendente por nombre*/
         }
     });
 
-function ordenarProd(criterio, arrprod){
+function ordenarProd(criterio, arrprod){ //Aqui se crea una funcion para ordenar segun el criterio elegido
     let result = [];
-    if (criterio === ORDER_ASC_BY_NAME)
+    if (criterio === ORDER_ASC_BY_NAME) //Por nombre ascendente
     {
         result = arrprod.sort(function(a, b) {
             if ( a.name < b.name ){ return -1; } //Aqui accedemos a la propiedad nombre del objeto 'a'
             if ( a.name > b.name ){ return 1; }  //para compararlo con el nombre del objeto 'b'
             return 0;
         });
-    }else if (criterio === ORDER_DESC_BY_NAME){
+    }else if (criterio === ORDER_DESC_BY_NAME){ //Por nombre descendente
         result = arrprod.sort(function(a, b) {
             if ( a.name > b.name ){ return -1; }
             if ( a.name < b.name ){ return 1; }
             return 0;
         });
-    }else if (criterio === ORDER_BY_SOLD_COUNT){
+    }else if (criterio === ORDER_BY_SOLD_COUNT){ //Por cantidad de vendidos
         result = arrprod.sort(function(a, b) {
             let aCount = parseInt(a.soldCount); //Aqui accedemos a la propiedad vendidos del objeto 'a'
             let bCount = parseInt(b.soldCount); //para compararlo con el vendidos del objeto 'b'
@@ -50,7 +50,7 @@ function ordenarProd(criterio, arrprod){
             if ( aCount < bCount ){ return 1; }
             return 0;
         });
-    }else if (criterio === ORD_POR_$_ASC){
+    }else if (criterio === ORD_POR_$_ASC){ //Por precio ascendente
         result = arrprod.sort(function(a, b) {
             let acost = parseInt(a.cost); //Aqui accedemos a la propiedad precio del objeto 'a'
             let bcost = parseInt(b.cost); //para compararlo con el precio del objeto 'b'
@@ -59,7 +59,7 @@ function ordenarProd(criterio, arrprod){
             if ( acost < bcost ){ return -1; }
             return 0;
         });
-    }else if (criterio === ORD_POR_$_DESC){
+    }else if (criterio === ORD_POR_$_DESC){ //Por precio descendente
         result = arrprod.sort(function(a, b) {
             let acost = parseInt(a.cost); 
             let bcost = parseInt(b.cost); 
@@ -106,7 +106,7 @@ function mostrarProductos(){
         }
     }
 
-        document.getElementById("listaproductos").innerHTML = listaProductos;
+        document.getElementById("listaproductos").innerHTML = listaProductos; //Insertamos la lista en el div con id "listaproductos"
     }
 }
 
